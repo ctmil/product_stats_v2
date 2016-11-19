@@ -2,9 +2,9 @@
  <openerp>
  	<data>
 
-	<record id="view_action_generate_abastecimiento" model="ir.ui.view">
+	<record id="view_action_generate_abastecimiento_v2" model="ir.ui.view">
             <field name="name">Generar Abastecimientos</field>
-            <field name="model">product.generate.abastecimiento</field>
+            <field name="model">product.generate.abastecimiento.v2</field>
             <field name="arch" type="xml">
                 <form string="Generar Abastecimiento">                                         
 			<group string="Deposito">
@@ -12,7 +12,7 @@
 				<!-- field name="location_id" / -->
 			</group>
 		   <footer>
-                        <button name="generate_abastecimiento" string="Generar Abastecimientos" 
+                        <button name="generate_abastecimiento_v2" string="Generar Abastecimientos" 
                                 type="object" class="oe_highlight"/>
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
@@ -21,21 +21,21 @@
             </field>
         </record>
 
-        <record id="action_generate_abastecimiento" model="ir.actions.act_window">
+        <record id="action_generate_abastecimiento_v2" model="ir.actions.act_window">
             <field name="name">Generar Abastecimiento</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">product.generate.abastecimiento</field>
+            <field name="res_model">product.generate.abastecimiento.v2</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_action_generate_abastecimiento"/>
+            <field name="view_id" ref="view_action_generate_abastecimiento_v2"/>
             <field name="target">new</field>
             <field name="multi">True</field>
         </record>
 
-        <record model="ir.values" id="model_product_abastecimiento">
+        <record model="ir.values" id="model_product_abastecimiento_v2">
             <field name="name">Generar Abastecimiento</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_generate_abastecimiento'))" />
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_generate_abastecimiento_v2'))" />
             <field name="key">action</field>
             <field name="model">product.product</field>
         </record>		
