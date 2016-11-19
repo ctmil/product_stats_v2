@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="product_product_stats_form_view" model="ir.ui.view">
+            <field name="name">product.product.stats</field>
+            <field name="model">product.product</field>
+	    <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+		<field name="default_code" position="after">
+			<field name="product_rank" />
+			<field name="porcentaje_del_total" />
+			<field name="product_abc" />
+		</field>
+	    </field>
+	</record>
+
+        <record id="product_history_tree_view" model="ir.ui.view">
+            <field name="name">product.history.tree</field>
+            <field name="model">product.history</field>
+            <field name="arch" type="xml">
+		<tree string="Historia de ventas por producto">
+			<field name="period_id" />
+			<field name="product_id" />
+			<field name="categ_id" />
+			<field name="cantidad" />
+			<field name="monto_vendido" />
+		</tree>
+	    </field>
+	</record>
+
+        <record id="product_history_search_view" model="ir.ui.view">
+            <field name="name">product.history.search</field>
+            <field name="model">product.history</field>
+            <field name="arch" type="xml">
+		<search string="Historia de ventas por producto">
+			<field name="period_id" />
+			<field name="product_id" />
+			<field name="categ_id" />
+		</search>
+	    </field>
+	</record>
+
+        <record id="product_stats_search" model="ir.ui.view">
+            <field name="name">product.stats.search</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+		<search string="Estadisticas por producto">
+			<field name="name" />
+			<field name="default_code" />
+			<field name="categ_id" />
+			<field name="supplier_id" />
+			<separator />
+	                <filter string="Categ A" domain="[('product_abc','=','A')]" icon="terp-camera_test"/>
+	                <filter string="Categ B" domain="[('product_abc','=','B')]" icon="terp-camera_test"/>
+	                <filter string="Categ C" domain="[('product_abc','=','C')]" icon="terp-camera_test"/>
+	                <xpath expr="//group[@string='Group by...']" position="inside">
+	                    <filter string='Clasificacion ABC' name="product_abc" domain="[]" context="{'group_by' : 'product_abc'}"/>
+	                    <filter string='Proveedor' name="supplier_id" domain="[]" context="{'group_by' : 'supplier_id'}"/>
+			</xpath>
+		</search>
+	    </field>
+	</record>
+
+        <record id="product_product_stats_tree" model="ir.ui.view">
+            <field name="name">product.product.stats.tree</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+		<tree string="Estadisticas por producto">
+			<field name="name" />
+			<field name="categ_id" />
+			<field name="supplier_id" />
+			<field name="product_rank" />
+			<field name="product_abc" />
+			<field name="porcentaje_del_total" />
+			<field name="promedio" />
+			<field name="desvio" />
+			<field name="qty_available" />
+			<field name="punto_pedido" />
+			<field name="order_size" />
+			<field name="stock_seguridad" />
+			<field name="qty_available" />
+			<field name="sobrante" />
+			<field name="faltante" />
+			<field name="sobrante_valorizado" />
+			<field name="faltante_valorizado" />
+		</tree>
+	    </field>
+	</record>
+
+        <record id="action_product_stats" model="ir.actions.act_window">
+            <field name="name">Estadisticas de productos</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+	    <field name="domain">[('product_rank','>',0)]</field>
+	    <field name="view_id" ref="product_product_stats_tree" />
+	    <field name="search_id" ref="product_stats_search" />
+        </record>
+
+        <record id="action_product_history" model="ir.actions.act_window">
+            <field name="name">Ventas/Cantidades por Mes</field>
+            <field name="res_model">product.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <record id="view_product_graph" model="ir.ui.view">
+         <field name="name">product.product.graph</field>
+         <field name="model">product.product</field>
+         <field name="arch" type="xml">
+             <graph string="Pivot Producto" type="pivot" stacked="True">
+                 <field name="name" type="row"/>
+			<field name="internal_category" type="row"/>
+			<field name="internal_supplier" type="row"/>
+			<field name="product_rank" type="row"/>
+			<field name="product_abc" type="col"/>
+			<field name="qty_available" type="measure"/>
+			<field name="punto_pedido" type="measure"/>
+			<field name="order_size" type="measure"/>
+			<field name="stock_seguridad" type="measure"/>
+			<field name="qty_available" type="measure"/>
+			<field name="sobrante" type="measure"/>
+			<field name="faltante" type="measure"/>
+			<field name="sobrante_valorizado" type="measure"/>
+			<field name="faltante_valorizado" type="measure"/>
+		</graph>
+	    </field>
+	</record>
+
+        <record id="action_product_history" model="ir.actions.act_window">
+            <field name="name">Ventas/Cantidades por Mes</field>
+            <field name="res_model">product.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="action_product_stats_pivot" model="ir.actions.act_window">
+            <field name="name">Pivot por producto</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+	    <field name="domain">[('product_rank','>',0)]</field>
+	    <field name="view_id" ref="view_product_graph" />
+        </record>
+
+        <menuitem id="menu_product_history" name="Ventas/Cantidades por mes" 
+            parent="base.menu_product" 
+            action="action_product_history"
+            sequence="90"/>
+
+        <menuitem id="menu_product_stats" name="Estadisticas por producto" 
+            parent="base.menu_product" 
+            action="action_product_stats"
+            sequence="100"/>
+
+        <menuitem id="menu_product_stats_pivot" name="Pivot por producto" 
+            parent="base.menu_product" 
+            action="action_product_stats_pivot"
+            sequence="110"/>
+
+    </data>
+</openerp>
