@@ -12,9 +12,9 @@ from dateutil import relativedelta
 #Get the logger
 _logger = logging.getLogger(__name__)
 
-class product_history(models.Model):
-	_name = 'product.history'
-	_description = 'Historial de ventas del producto'
+class product_history_v2(models.Model):
+	_name = 'product.history.v2'
+	_description = 'Historial de ventas del producto 2.0'
 
 	@api.multi
 	def _update_product_history(self):
@@ -58,7 +58,7 @@ class product_product(models.Model):
 	_inherit = 'product.product'
 
 	@api.multi
-	def _update_product_rank(self):
+	def _update_product_rank_v2(self):
 		previous_date = date.today() - timedelta(days=365)
 		invoices = self.env['account.invoice'].search([('date_invoice','>=',previous_date),
 			('state','in',['open','paid'])])
@@ -75,15 +75,15 @@ class product_product(models.Model):
 		for product_id in list_products:
 			index += 1
 			vals = {
-				'product_rank': index
+				'product_rank_v2': index
 				}
 			product = self.env['product.product'].browse(product_id)
 			product.write(vals)
 
 
 	@api.multi
-	def _update_product_abc(self):
-		products = self.env['product.product'].search([('porcentaje_del_total','>',0)],order='porcentaje_del_total desc')
+	def _update_product_abc_v2(self):
+		products = self.env['product.product'].search([('porcentaje_del_total_v2','>',0)],order='porcentaje_del_total desc')
 		running_total = 0
 		for product in products:
 			running_total += product.porcentaje_del_total
@@ -94,10 +94,10 @@ class product_product(models.Model):
 					classification_value = 'B'
 				else:
 					classification_value = 'C'
-			product.write({'product_abc': classification_value})
+			product.write({'product_abc_v2': classification_value})
 
 	@api.multi
-	def _update_porcentaje_total_ventas(self):
+	def _update_porcentaje_total_ventas_v2(self):
 		previous_date = date.today() - timedelta(days=365)
 		invoices = self.env['account.invoice'].search([('date_invoice','>=',previous_date),
 			('state','in',['open','paid'])])
@@ -117,31 +117,31 @@ class product_product(models.Model):
 				amount = product_amount[product]
 				percentaje = (amount / total_amount) * 100
 				vals = {
-					'porcentaje_del_total': percentaje,
+					'porcentaje_del_total_v2': percentaje,
 					}
 				product = self.env['product.product'].browse(product)
 				product.write(vals)
 				
 
 	@api.model
-	def _compute_sobrantes_faltantes(self):
-		products = self.env['product.product'].search([('product_rank','>',0)])
+	def _compute_sobrantes_faltantes_v2(self):
+		products = self.env['product.product'].search([('product_rank_v2','>',0)])
 		for product in products:
 			faltante = 0
 			faltante_valorizado = 0
 			sobrante = 0
 			sobrante_valorizado = 0
-			if product.qty_available > product.punto_pedido:
-				sobrante = product.qty_available - product.punto_pedido
+			if product.qty_available > product.punto_pedido_v2:
+				sobrante = product.qty_available - product.punto_pedido_v2
 				sobrante_valorizado = sobrante * product.standard_price
-			if product.punto_pedido > product.qty_available:
-				faltante = product.punto_pedido - product.qty_available
+			if product.punto_pedido_v2 > product.qty_available:
+				faltante = product.punto_pedido_v2 - product.qty_available
 				faltante_valorizado = faltante * product.standard_price
 			vals = {
-				'faltante': faltante,
-				'faltante_valorizado': faltante_valorizado,
-				'sobrante': sobrante,
-				'sobrante_valorizado': sobrante_valorizado,
+				'faltante_v2': faltante,
+				'faltante_valorizado_v2': faltante_valorizado,
+				'sobrante_v2': sobrante,
+				'sobrante_valorizado_v2': sobrante_valorizado,
 				}
 			try:
 				product.write(vals)
@@ -149,31 +149,31 @@ class product_product(models.Model):
 				pass
 
 	@api.model
-	def _compute_puntos_pedidos(self):
+	def _compute_puntos_pedidos_v2(self):
 		# products = self.env['product.product'].search([('type','=','product'),('product_rank','>',0)])
-		products = self.env['product.product'].search([('product_rank','>',0)])
+		products = self.env['product.product'].search([('product_rank_v2','>',0)])
 		for product in products:
 			history_ids = self.env['product.history'].search([('product_id','=',product.id)])
 			if history_ids:
-				product.update_punto_pedido()
+				product.update_punto_pedido_v2()
 
 	@api.one
-	def update_punto_pedido(self):
+	def update_punto_pedido_v2(self):
 		fecha_anterior = str(date.today() - timedelta(days=365))
 		period_ids = self.env['account.period'].search([('date_start','>=',fecha_anterior)],limit=12)
 		periods = str([x.id for x in period_ids])
 		periods = periods.replace('[','(')
 		periods = periods.replace(']',')')
-		if self.product_abc == 'A':
+		if self.product_abc_v2 == 'A':
 			servicio = '0.8'
 		else:
-			if self.product_abc == 'B':
+			if self.product_abc_v2 == 'B':
 				servicio = '0.6'
 			else:
 				servicio = '0.5'
 		norminv_str = ',norminv('+servicio
 		sql = "select avg(cantidad) as promedio,stddev(cantidad) as desvio " + \
-			"from product_history where product_id = "+str(self.id) + \
+			"from product_history_v2 where product_id = "+str(self.id) + \
 			" and period_id in " + str(periods)
 		self.env.cr.execute(sql)
 		for promedio,desvio in self.env.cr.fetchall():
@@ -191,9 +191,9 @@ class product_product(models.Model):
 			else:
 				pto_pedido = pto_pedido[0]
 			vals = {
-				'punto_pedido': pto_pedido,
-				'promedio': promedio,
-				'desvio': desvio or 0,
+				'punto_pedido_v2': pto_pedido,
+				'promedio_v2': promedio,
+				'desvio_v2': desvio or 0,
 				}
 			#try:
 			self.write(vals)
@@ -201,15 +201,15 @@ class product_product(models.Model):
 			#	pass	
 
 	@api.one
-	def _compute_stock_seguridad(self):
-		if self.punto_pedido:
-			if (self.punto_pedido - self.promedio) > 0:
-				self.stock_seguridad = self.punto_pedido - self.promedio
+	def _compute_stock_seguridad_v2(self):
+		if self.punto_pedido_v2:
+			if (self.punto_pedido_v2 - self.promedio_v2) > 0:
+				self.stock_seguridad_v2 = self.punto_pedido_v2 - self.promedio_v2
 
 	@api.one
-	def _compute_pedido(self):
-		if self.promedio:
-			self.order_size = self.promedio
+	def _compute_pedido_v2(self):
+		if self.promedio_v2:
+			self.order_size_v2 = self.promedio_v2
 
 	"""
 	@api.one
@@ -232,31 +232,31 @@ class product_product(models.Model):
 	"""
 
 	@api.one
-	def _compute_internal_category(self):
+	def _compute_internal_category_v2(self):
 		if self.product_tmpl_id.categ_id:
-			self.internal_category = self.product_templ_id.categ_id.id
+			self.internal_category_v2 = self.product_tmpl_id.categ_id.id
 
 	@api.one
-	def _compute_internal_supplier(self):
+	def _compute_internal_supplier_v2(self):
 		if self.product_tmpl_id.supplier_id:
-			self.internal_supplier = self.product_tmpl_id.supplier_id.id
+			self.internal_supplier_v2 = self.product_tmpl_id.supplier_id.id
 
-	internal_supplier = fields.Many2one('res.partner',compute=_compute_internal_supplier,store=True)
-	internal_category = fields.Many2one('product.category',compute=_compute_internal_category,store=True)
-	product_rank = fields.Integer('Ranking')
-	porcentaje_del_total = fields.Float('Porcentaje del Total de Ventas')
-	product_abc = fields.Selection(selection=[('A','A'),('B','B'),('C','C')],string='Clasificacion ABC')
-	product_history = fields.Many2one(comodel_name='product.history',inverse_name='product_id')
-	punto_pedido = fields.Integer(string='Punto de pedido')
-	stock_seguridad = fields.Integer(string='Stock Seguridad',compute=_compute_stock_seguridad)
-	order_size = fields.Integer(string='Pedido',compute=_compute_pedido)
-	promedio = fields.Integer(string='Promedio')
-	desvio = fields.Integer(string='Desvio')
+	internal_supplier_v2 = fields.Many2one('res.partner',compute=_compute_internal_supplier_v2,store=True)
+	internal_category_v2 = fields.Many2one('product.category',compute=_compute_internal_category_v2,store=True)
+	product_rank_v2 = fields.Integer('Ranking')
+	porcentaje_del_total_v2 = fields.Float('Porcentaje del Total de Ventas')
+	product_abc_v2 = fields.Selection(selection=[('A','A'),('B','B'),('C','C')],string='Clasificacion ABC')
+	product_history_v2 = fields.Many2one(comodel_name='product.history.v2',inverse_name='product_id')
+	punto_pedido_v2 = fields.Integer(string='Punto de pedido')
+	stock_seguridad_v2 = fields.Integer(string='Stock Seguridad',compute=_compute_stock_seguridad_v2)
+	order_size_v2 = fields.Integer(string='Pedido',compute=_compute_pedido_v2)
+	promedio_v2 = fields.Integer(string='Promedio')
+	desvio_v2 = fields.Integer(string='Desvio')
 	#sobrante = fields.Integer(string='Sobrante',compute=_compute_sobrante)
 	#faltante = fields.Integer(string='Faltante',compute=_compute_faltante)
 	#sobrante_valorizado = fields.Integer(string='Sobrante Valorizado',compute=_compute_sobrante_valorizado)
 	#faltante_valorizado = fields.Integer(string='Faltante Valorizado',compute=_compute_faltante_valorizado)
-	sobrante = fields.Integer(string='Sobrante')
-	faltante = fields.Integer(string='Faltante')
-	sobrante_valorizado = fields.Integer(string='Sobrante Valorizado')
-	faltante_valorizado = fields.Integer(string='Faltante Valorizado')
+	sobrante_v2 = fields.Integer(string='Sobrante')
+	faltante_v2 = fields.Integer(string='Faltante')
+	sobrante_valorizado_v2 = fields.Integer(string='Sobrante Valorizado')
+	faltante_valorizado_v2 = fields.Integer(string='Faltante Valorizado')
