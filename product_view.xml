@@ -2,22 +2,22 @@
 <openerp>
     <data>
 
-        <record id="product_product_stats_form_view" model="ir.ui.view">
-            <field name="name">product.product.stats</field>
+        <record id="product_product_stats_form_view_v2" model="ir.ui.view">
+            <field name="name">product.product.stats.v2</field>
             <field name="model">product.product</field>
 	    <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="arch" type="xml">
 		<field name="default_code" position="after">
-			<field name="product_rank" />
-			<field name="porcentaje_del_total" />
-			<field name="product_abc" />
+			<field name="product_rank_v2" />
+			<field name="porcentaje_del_total_v2" />
+			<field name="product_abc_v2" />
 		</field>
 	    </field>
 	</record>
 
-        <record id="product_history_tree_view" model="ir.ui.view">
-            <field name="name">product.history.tree</field>
-            <field name="model">product.history</field>
+        <record id="product_history_tree_view_v2" model="ir.ui.view">
+            <field name="name">product.history.tree.v2</field>
+            <field name="model">product.history.v2</field>
             <field name="arch" type="xml">
 		<tree string="Historia de ventas por producto">
 			<field name="period_id" />
@@ -29,8 +29,8 @@
 	    </field>
 	</record>
 
-        <record id="product_history_search_view" model="ir.ui.view">
-            <field name="name">product.history.search</field>
+        <record id="product_history_search_view_v2" model="ir.ui.view">
+            <field name="name">product.history.search.v2</field>
             <field name="model">product.history</field>
             <field name="arch" type="xml">
 		<search string="Historia de ventas por producto">
@@ -41,123 +41,121 @@
 	    </field>
 	</record>
 
-        <record id="product_stats_search" model="ir.ui.view">
-            <field name="name">product.stats.search</field>
+        <record id="product_stats_search_v2" model="ir.ui.view">
+            <field name="name">product.stats.search.v2</field>
             <field name="model">product.product</field>
             <field name="arch" type="xml">
 		<search string="Estadisticas por producto">
 			<field name="name" />
 			<field name="default_code" />
 			<field name="categ_id" />
-			<field name="supplier_id" />
+			<field name="supplier_id_v2" />
 			<separator />
-	                <filter string="Categ A" domain="[('product_abc','=','A')]" icon="terp-camera_test"/>
-	                <filter string="Categ B" domain="[('product_abc','=','B')]" icon="terp-camera_test"/>
-	                <filter string="Categ C" domain="[('product_abc','=','C')]" icon="terp-camera_test"/>
+	                <filter string="Categ A" domain="[('product_abc_v2','=','A')]" icon="terp-camera_test"/>
+	                <filter string="Categ B" domain="[('product_abc_v2','=','B')]" icon="terp-camera_test"/>
+	                <filter string="Categ C" domain="[('product_abc_v2','=','C')]" icon="terp-camera_test"/>
 	                <xpath expr="//group[@string='Group by...']" position="inside">
-	                    <filter string='Clasificacion ABC' name="product_abc" domain="[]" context="{'group_by' : 'product_abc'}"/>
-	                    <filter string='Proveedor' name="supplier_id" domain="[]" context="{'group_by' : 'supplier_id'}"/>
+	                    <filter string='Clasificacion ABC' name="product_abc_v2" domain="[]" context="{'group_by' : 'product_abc_v2'}"/>
+	                    <filter string='Proveedor' name="supplier_id_v2" domain="[]" context="{'group_by' : 'supplier_id_v2'}"/>
 			</xpath>
 		</search>
 	    </field>
 	</record>
 
-        <record id="product_product_stats_tree" model="ir.ui.view">
-            <field name="name">product.product.stats.tree</field>
+        <record id="product_product_stats_tree_v2" model="ir.ui.view">
+            <field name="name">product.product.stats.tree.v2</field>
             <field name="model">product.product</field>
             <field name="arch" type="xml">
 		<tree string="Estadisticas por producto">
 			<field name="name" />
 			<field name="categ_id" />
-			<field name="supplier_id" />
-			<field name="product_rank" />
-			<field name="product_abc" />
-			<field name="porcentaje_del_total" />
-			<field name="promedio" />
-			<field name="desvio" />
+			<field name="supplier_id_v2" />
+			<field name="product_rank_v2" />
+			<field name="product_abc_v2" />
+			<field name="porcentaje_del_total_v2" />
+			<field name="promedio_v2" />
+			<field name="desvio_v2" />
 			<field name="qty_available" />
-			<field name="punto_pedido" />
-			<field name="order_size" />
-			<field name="stock_seguridad" />
-			<field name="qty_available" />
-			<field name="sobrante" />
-			<field name="faltante" />
-			<field name="sobrante_valorizado" />
-			<field name="faltante_valorizado" />
+			<field name="punto_pedido_v2" />
+			<field name="order_size_v2" />
+			<field name="stock_seguridad_v2" />
+			<field name="sobrante_v2" />
+			<field name="faltante_v2" />
+			<field name="sobrante_valorizado_v2" />
+			<field name="faltante_valorizado_v2" />
 		</tree>
 	    </field>
 	</record>
 
-        <record id="action_product_stats" model="ir.actions.act_window">
+        <record id="action_product_stats_v2" model="ir.actions.act_window">
             <field name="name">Estadisticas de productos</field>
             <field name="res_model">product.product</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-	    <field name="domain">[('product_rank','>',0)]</field>
-	    <field name="view_id" ref="product_product_stats_tree" />
-	    <field name="search_id" ref="product_stats_search" />
+	    <field name="domain">[('product_rank_v2','>',0)]</field>
+	    <field name="view_id" ref="product_product_stats_tree_v2" />
+	    <field name="search_id" ref="product_stats_search_v2" />
         </record>
 
-        <record id="action_product_history" model="ir.actions.act_window">
+        <record id="action_product_history_v2" model="ir.actions.act_window">
             <field name="name">Ventas/Cantidades por Mes</field>
-            <field name="res_model">product.history</field>
+            <field name="res_model">product.history.v2</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-    <record id="view_product_graph" model="ir.ui.view">
-         <field name="name">product.product.graph</field>
+    <record id="view_product_graph_v2" model="ir.ui.view">
+         <field name="name">product.product.graph.v2</field>
          <field name="model">product.product</field>
          <field name="arch" type="xml">
              <graph string="Pivot Producto" type="pivot" stacked="True">
                  <field name="name" type="row"/>
-			<field name="internal_category" type="row"/>
-			<field name="internal_supplier" type="row"/>
-			<field name="product_rank" type="row"/>
-			<field name="product_abc" type="col"/>
+			<field name="internal_category_v2" type="row"/>
+			<field name="internal_supplier_v2" type="row"/>
+			<field name="product_rank_v2" type="row"/>
+			<field name="product_abc_v2" type="col"/>
 			<field name="qty_available" type="measure"/>
-			<field name="punto_pedido" type="measure"/>
-			<field name="order_size" type="measure"/>
-			<field name="stock_seguridad" type="measure"/>
-			<field name="qty_available" type="measure"/>
-			<field name="sobrante" type="measure"/>
-			<field name="faltante" type="measure"/>
-			<field name="sobrante_valorizado" type="measure"/>
-			<field name="faltante_valorizado" type="measure"/>
+			<field name="punto_pedido_v2" type="measure"/>
+			<field name="order_size_v2" type="measure"/>
+			<field name="stock_seguridad_v2" type="measure"/>
+			<field name="sobrante_v2" type="measure"/>
+			<field name="faltante_v2" type="measure"/>
+			<field name="sobrante_valorizado_v2" type="measure"/>
+			<field name="faltante_valorizado_v2" type="measure"/>
 		</graph>
 	    </field>
 	</record>
 
-        <record id="action_product_history" model="ir.actions.act_window">
+        <record id="action_product_history_v2" model="ir.actions.act_window">
             <field name="name">Ventas/Cantidades por Mes</field>
-            <field name="res_model">product.history</field>
+            <field name="res_model">product.history.v2</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
 
-        <record id="action_product_stats_pivot" model="ir.actions.act_window">
+        <record id="action_product_stats_pivot_v2" model="ir.actions.act_window">
             <field name="name">Pivot por producto</field>
             <field name="res_model">product.product</field>
             <field name="view_type">form</field>
             <field name="view_mode">graph</field>
-	    <field name="domain">[('product_rank','>',0)]</field>
-	    <field name="view_id" ref="view_product_graph" />
+	    <field name="domain">[('product_rank_v2','>',0)]</field>
+	    <field name="view_id" ref="view_product_graph_v2" />
         </record>
 
-        <menuitem id="menu_product_history" name="Ventas/Cantidades por mes" 
+        <menuitem id="menu_product_history_v2" name="Ventas/Cantidades por mes" 
             parent="base.menu_product" 
-            action="action_product_history"
+            action="action_product_history_v2"
             sequence="90"/>
 
-        <menuitem id="menu_product_stats" name="Estadisticas por producto" 
+        <menuitem id="menu_product_stats_v2" name="Estadisticas por producto" 
             parent="base.menu_product" 
-            action="action_product_stats"
+            action="action_product_stats_v2"
             sequence="100"/>
 
-        <menuitem id="menu_product_stats_pivot" name="Pivot por producto" 
+        <menuitem id="menu_product_stats_pivot_v2" name="Pivot por producto" 
             parent="base.menu_product" 
-            action="action_product_stats_pivot"
+            action="action_product_stats_pivot_v2"
             sequence="110"/>
 
     </data>
