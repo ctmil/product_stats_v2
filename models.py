@@ -17,7 +17,7 @@ class product_history_v2(models.Model):
 	_description = 'Historial de ventas del producto 2.0'
 
 	@api.multi
-	def _update_product_history(self):
+	def _update_product_history_v2(self):
 		history_ids = self.search([])
 		for record in history_ids:
 			record.unlink()
@@ -153,7 +153,7 @@ class product_product(models.Model):
 		# products = self.env['product.product'].search([('type','=','product'),('product_rank','>',0)])
 		products = self.env['product.product'].search([('product_rank_v2','>',0)])
 		for product in products:
-			history_ids = self.env['product.history'].search([('product_id','=',product.id)])
+			history_ids = self.env['product.history.v2'].search([('product_id','=',product.id)])
 			if history_ids:
 				product.update_punto_pedido_v2()
 
