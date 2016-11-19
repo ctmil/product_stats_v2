@@ -31,7 +31,7 @@
 
         <record id="product_history_search_view_v2" model="ir.ui.view">
             <field name="name">product.history.search.v2</field>
-            <field name="model">product.history</field>
+            <field name="model">product.history.v2</field>
             <field name="arch" type="xml">
 		<search string="Historia de ventas por producto">
 			<field name="period_id" />
@@ -49,14 +49,15 @@
 			<field name="name" />
 			<field name="default_code" />
 			<field name="categ_id" />
-			<field name="supplier_id_v2" />
+			<field name="internal_supplier_id_v2" />
 			<separator />
 	                <filter string="Categ A" domain="[('product_abc_v2','=','A')]" icon="terp-camera_test"/>
 	                <filter string="Categ B" domain="[('product_abc_v2','=','B')]" icon="terp-camera_test"/>
 	                <filter string="Categ C" domain="[('product_abc_v2','=','C')]" icon="terp-camera_test"/>
 	                <xpath expr="//group[@string='Group by...']" position="inside">
 	                    <filter string='Clasificacion ABC' name="product_abc_v2" domain="[]" context="{'group_by' : 'product_abc_v2'}"/>
-	                    <filter string='Proveedor' name="supplier_id_v2" domain="[]" context="{'group_by' : 'supplier_id_v2'}"/>
+	                    <filter string='Proveedor' name="internal_supplier_id_v2" domain="[]" 
+					context="{'group_by' : 'internal_supplier_id_v2'}"/>
 			</xpath>
 		</search>
 	    </field>
@@ -69,7 +70,7 @@
 		<tree string="Estadisticas por producto">
 			<field name="name" />
 			<field name="categ_id" />
-			<field name="supplier_id_v2" />
+			<field name="internal_supplier_id_v2" />
 			<field name="product_rank_v2" />
 			<field name="product_abc_v2" />
 			<field name="porcentaje_del_total_v2" />
