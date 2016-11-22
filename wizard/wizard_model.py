@@ -15,7 +15,7 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 	#location_id = fields.Many2one('stock.location',string='Ubicacion',required=True,domain=[('usage','=','internal')])
 
 	@api.multi
-	def generate_abastecimiento(self):
+	def generate_abastecimiento_v2(self):
 		context = self.env.context
 		if context['active_model'] == 'product.product':
 			for active_id in context['active_ids']:
