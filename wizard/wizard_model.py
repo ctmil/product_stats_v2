@@ -62,6 +62,7 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 						product_qty = product.stock_seguridad_v2 + product.order_size_v2
 					vals_line = {
 						'product_id': active_id,
+						'name': product.name,
 						'order_id': po.id,
 						'product_qty': product_qty,
 						'price_unit': product.standard_price,
