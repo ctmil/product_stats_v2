@@ -6,6 +6,9 @@ from openerp import SUPERUSER_ID
 import openerp.addons.decimal_precision as dp
 _logger = logging.getLogger(__name__)
 from openerp import models, fields, api
+from datetime import date
+from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 
 
 class product_generate_abastecimiento_v2(models.TransientModel):
@@ -60,7 +63,8 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 						product_qty = product.order_size_v2
 					if product.stock_seguridad_v2 > product.qty_available:
 						product_qty = product.stock_seguridad_v2 + product.order_size_v2
-					vals_line = {
+					vals_line = {	
+						'date_planned': str(date.today() + relativedelta(months=1)),
 						'product_id': active_id,
 						'name': product.name,
 						'order_id': po.id,
