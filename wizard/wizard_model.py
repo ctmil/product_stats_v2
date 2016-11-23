@@ -20,6 +20,7 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 		if context['active_model'] == 'product.product':
 			suppliers = []
 			for active_id in context['active_ids']:
+				product = self.env['product.product'].browse(active_id)
 				if product.punto_pedido_v2:
 					vals = {
 						'warehouse_id': self.warehouse_id.id,
