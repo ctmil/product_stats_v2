@@ -18,10 +18,9 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 	def generate_abastecimiento_v2(self):
 		context = self.env.context
 		if context['active_model'] == 'product.product':
+			suppliers = []
 			for active_id in context['active_ids']:
-				product = self.env['product.product'].browse(active_id)
-				#lot_stock_id
-				#import pdb;pdb.set_trace()
+				"""
 				if product.punto_pedido_v2:
 					vals = {
 						'warehouse_id': self.warehouse_id.id,
@@ -39,5 +38,11 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 						return_id = self.env['stock.warehouse.orderpoint'].create(vals)
 					else:
 						return_id = self.env['stock.warehouse.orderpoint'].write(vals)
+				"""
+				product = self.env['product.product'].browse(active_id)
+				if product.internal_supplier_v2.id not in suppliers:
+					suppliers.append(product.internal_supplier_v2.id)
+			if len(suppliers) > 1:
+				raise Warning('Se seleccionaron productos para mas de un proveedor')	
 		return None		
 
