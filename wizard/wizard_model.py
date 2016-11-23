@@ -50,7 +50,7 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 			vals_po = {
 				'partner_id': suppliers[0],
 				'location_id': self.warehouse_id.lot_stock_id.id,	
-				'pricelist_id': supplier.property_product_pricelist_purchase,
+				'pricelist_id': supplier.property_product_pricelist_purchase.id,
 				}	
 			po = self.env['purchase.order'].create(vals_po)
 		return None		
