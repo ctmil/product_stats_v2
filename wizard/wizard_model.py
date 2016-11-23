@@ -72,6 +72,18 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 						'price_unit': product.standard_price,
 						}
 					line_id = self.env['purchase.order.line'].create(vals_line)
+			if po:
+	                        res = {
+	                               "name": "purchase.order.wizard."+str(po.id),
+        	                       "type": "ir.actions.act_window",
+	                               "res_model": "purchase.order",
+	                               "view_type": "form",
+	                               "view_mode": "form",
+        	                       #"view_id": "product.product_supplierinfo_form_view",
+                	               "res_id": po.id,
+                        	       "nodestroy": True,
+                                	}
+	                        return res
 	
 		return None		
 
