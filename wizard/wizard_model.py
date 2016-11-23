@@ -59,10 +59,7 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 				product = self.env['product.product'].browse(active_id)
 				# si hay menos que el pto de pedido...
 				if product.punto_pedido_v2 > product.qty_available:
-					if product.order_size_v2 > product.qty_available:
-						product_qty = product.order_size_v2
-					if product.stock_seguridad_v2 > product.qty_available:
-						product_qty = product.stock_seguridad_v2 + product.order_size_v2
+					product_qty = product.punto_pedido_v2 - product.qty_available
 					vals_line = {	
 						'date_planned': str(date.today() + relativedelta(months=1)),
 						'product_id': active_id,
