@@ -43,6 +43,15 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 				if product.internal_supplier_v2.id not in suppliers:
 					suppliers.append(product.internal_supplier_v2.id)
 			if len(suppliers) > 1:
-				raise Warning('Se seleccionaron productos para mas de un proveedor')	
+				raise Warning('Se seleccionaron productos para mas de un proveedor')
+			if not suppliers:
+				raise Warning('Los productos no tienen proveedor asignado')
+			supplier = self.env['res.partner'].browse(suppliers[0])
+			vals_po = {
+				'partner_id': suppliers[0],
+				'location_id': self.warehouse_id.lot_stock_id.id,	
+				'pricelist_id': supplier.property_product_pricelist_purchase,
+				}	
+			po = self.env['purchase.order'].create(vals_po)
 		return None		
 
