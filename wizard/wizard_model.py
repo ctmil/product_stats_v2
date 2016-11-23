@@ -20,7 +20,6 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 		if context['active_model'] == 'product.product':
 			suppliers = []
 			for active_id in context['active_ids']:
-				"""
 				if product.punto_pedido_v2:
 					vals = {
 						'warehouse_id': self.warehouse_id.id,
@@ -38,7 +37,6 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 						return_id = self.env['stock.warehouse.orderpoint'].create(vals)
 					else:
 						return_id = self.env['stock.warehouse.orderpoint'].write(vals)
-				"""
 				product = self.env['product.product'].browse(active_id)
 				if product.internal_supplier_v2.id not in suppliers:
 					suppliers.append(product.internal_supplier_v2.id)
@@ -53,5 +51,20 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 				'pricelist_id': supplier.property_product_pricelist_purchase.id,
 				}	
 			po = self.env['purchase.order'].create(vals_po)
+			for active_id in context['active_ids']:
+				product = self.env['product.product'].browse(active_id)
+				# si hay menos que el pto de pedido...
+				if product.punto_pedido_v2 > product.qty_available:
+					if product.order_size_v2 > product.qty_available:
+						product_qty = product.order_size_v2
+					if product.stock_seguridad_v2 > product.qty_available:
+						product_qty = product.stock_seguridad_v2 + product.order_size_v2
+					vals_line = {
+						'product_id': active_id,
+						'order_id': po.id,
+						'product_qty': product.punto_pedido
+						}
+					line_id = self.env['purchase.order.line'].create(vals_line)
+	
 		return None		
 
