@@ -63,7 +63,8 @@ class product_generate_abastecimiento_v2(models.TransientModel):
 					vals_line = {
 						'product_id': active_id,
 						'order_id': po.id,
-						'product_qty': product_qty
+						'product_qty': product_qty,
+						'price_unit': product.standard_price,
 						}
 					line_id = self.env['purchase.order.line'].create(vals_line)
 	
