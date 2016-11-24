@@ -241,6 +241,25 @@ class product_product(models.Model):
 		if self.product_tmpl_id.supplier_id:
 			self.internal_supplier_v2 = self.product_tmpl_id.supplier_id.id
 
+	@api.one
+	def _compute_sobrante_v2(self):
+		if self.punto_pedido_v2 > self.qty_available:
+			self.sobrante_v2 = self.punto_pedido_v2 - self.qty_available
+
+	@api.one
+	def _compute_faltante_v2(self):
+		if self.punto_pedido_v2 < self.qty_available:
+			self.faltante_v2 = self.qty_available - self.punto_pedido_v2
+
+	@api.one
+	def _compute_sobrante_valorizado_v2(self):
+		self.sobrante_valorizado_v2 = self.sobrante_valorizado_v2 * self.standard_price
+
+	@api.one
+	def _compute_faltante_valorizado_v2(self):
+		self.faltante_valorizado_v2 = self.faltante_valorizado_v2 * self.standard_price
+
+
 	internal_supplier_v2 = fields.Many2one('res.partner',compute=_compute_internal_supplier_v2,store=True)
 	internal_category_v2 = fields.Many2one('product.category',compute=_compute_internal_category_v2,store=True)
 	product_rank_v2 = fields.Integer('Ranking')
@@ -256,7 +275,7 @@ class product_product(models.Model):
 	#faltante = fields.Integer(string='Faltante',compute=_compute_faltante)
 	#sobrante_valorizado = fields.Integer(string='Sobrante Valorizado',compute=_compute_sobrante_valorizado)
 	#faltante_valorizado = fields.Integer(string='Faltante Valorizado',compute=_compute_faltante_valorizado)
-	sobrante_v2 = fields.Integer(string='Sobrante')
-	faltante_v2 = fields.Integer(string='Faltante')
-	sobrante_valorizado_v2 = fields.Integer(string='Sobrante Valorizado')
-	faltante_valorizado_v2 = fields.Integer(string='Faltante Valorizado')
+	sobrante_v2 = fields.Integer(string='Sobrante',compute=_compute_sobrante_v2)
+	faltante_v2 = fields.Integer(string='Faltante',compute=_compute_faltante_v2)
+	sobrante_valorizado_v2 = fields.Integer(string='Sobrante Valorizado',compute=_compute_sobrante_valorizado_v2)
+	faltante_valorizado_v2 = fields.Integer(string='Faltante Valorizado',compute=_compute_faltante_valorizado_v2)
