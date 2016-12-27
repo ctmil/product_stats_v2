@@ -8,7 +8,6 @@ import datetime
 import time
 
 from openerp.tools.translate import _
-from openerp.addons.website_mail.controllers.main import _message_post_helper
 
 class product_product(http.Controller):
         @http.route("/product/<int:product_id>", type='http', auth="user", website=True)
