@@ -28,5 +28,5 @@ class product_product(http.Controller):
                 values = {
                         'product': product
                 }
-                return request.website.render('product_stats.product_stats', values)
+                return request.website.render('product_stats_v2.product_stats', values)
 

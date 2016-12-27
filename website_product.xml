@@ -2,9 +2,9 @@
 <openerp>
 <data>
 
-  <template id="assets_frontend" inherit_id="website.assets_frontend" name="Project WBS frontend assets">
+  <template id="assets_frontend" inherit_id="website.assets_frontend" name="Product Stats frontend assets">
     <xpath expr="." position="inside">
-	<script type="text/javascript" src="/product_stats_v2/static/src/js/project_wbs.js"></script>
+	<script type="text/javascript" src="/product_stats_v2/static/src/js/product_stats.js"></script>
         <link rel='stylesheet' href='/product_stats_v2/static/src/css/project_stats.css'/>
            <!-- jQuery addons -->
             <!-- script type="text/javascript" src="/web/static/lib/jquery.validate/jquery.validate.js"></script>
