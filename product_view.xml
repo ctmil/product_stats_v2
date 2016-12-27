@@ -12,6 +12,7 @@
 			<field name="porcentaje_del_total_v2" />
 			<field name="product_abc_v2" />
 			<field name="semanas_stock_v2" />
+			<field name="porc_vtas_a" />
                         <button name="show_treemap"
                               string="Mostrar Treemap"
                               type="object" icon="icon-sitemap" />
