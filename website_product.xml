@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+  <template id="assets_frontend" inherit_id="website.assets_frontend" name="Project WBS frontend assets">
+    <xpath expr="." position="inside">
+	<script type="text/javascript" src="/product_stats_v2/static/src/js/project_wbs.js"></script>
+        <link rel='stylesheet' href='/product_stats_v2/static/src/css/project_stats.css'/>
+           <!-- jQuery addons -->
+            <!-- script type="text/javascript" src="/web/static/lib/jquery.validate/jquery.validate.js"></script>
+            <script type="text/javascript" src="/web/static/lib/jquery.scrollTo/jquery.scrollTo.js"></script>
+
+            <link rel="stylesheet" href="/web/static/lib/jquery.textext/jquery.textext.css"/>
+            <script type="text/javascript" src="/web/static/lib/jquery.textext/jquery.textext.js"></script>
+
+            <link rel="stylesheet" href="/web/static/lib/jquery.ui.notify/css/ui.notify.css"/>
+            <script type="text/javascript" src="/web/static/lib/jquery.ui.notify/js/jquery.notify.js"></script -->
+
+            <!-- nv.d3 -->
+            <link rel="stylesheet" href="/web/static/lib/nvd3/nv.d3.css"/>
+            <script type="text/javascript" src="/web/static/lib/nvd3/d3.v3.js"></script>
+            <script type="text/javascript" src="/web/static/lib/nvd3/nv.d3.js"></script>
+
+            <!-- Backbone -->
+            <!-- script type="text/javascript" src="/web/static/lib/backbone/backbone.js"></script -->
+
+            <!-- Internals -->
+            <!-- script type="text/javascript" charset="utf-8">
+                odoo._modules = <t t-raw="get_modules_order()"/>;
+            </script>
+            <link rel="stylesheet" href="/web/static/src/css/base.css"/>
+            <link rel="stylesheet" href="/web/static/src/css/data_export.css"/>
+            <link rel="stylesheet" href="/base/static/src/css/modules.css"/>
+
+            <link rel="stylesheet" href='/website/static/src/less/import_bootstrap.less'/>
+            <link rel="stylesheet" href="/web/static/src/less/variables.less"/>
+            <link rel="stylesheet" href="/web/static/src/less/enterprise_compatibility.less"/>
+            <link rel="stylesheet" href="/web/static/src/less/utils.less"/>
+            <link rel="stylesheet" href="/web/static/src/less/modal.less"/>
+            <link rel="stylesheet" href="/web/static/src/less/notification.less"/ -->
+
+            <script type="text/javascript" src="/web/static/lib/py.js/lib/py.js"></script>
+            <!-- Special case: core.js declares $.browser needed by ba-bbq -->
+            <script type="text/javascript" src="/web/static/src/js/framework/data.js"></script>
+            <script type="text/javascript" src="/web/static/src/js/framework/data_model.js"></script>
+            <script type="text/javascript" src="/web/static/src/js/framework/formats.js"></script>
+            <script type="text/javascript" src="/web/static/src/js/framework/view.js"></script>
+            <script type="text/javascript" src="/web/static/src/js/framework/pyeval.js"></script>
+
+    </xpath>
+  </template>
+
+  <template id="product_stats" name="Product Stats">
+      <t t-call="website.layout">
+        <body data-spy="scroll" data-target=".navspy" data-offset="50">
+            <div class="container">
+		<h1>Hola mundo</h1>
+		<div class="row">
+			<span t-field="product.name"></span>
+			<span t-field="product.id" id="product_id" style="display:none;"></span>
+		</div>
+		<div class="products">
+		</div>
+            </div>
+        </body>
+      </t>
+  </template>
+
+</data>
+</openerp>
+

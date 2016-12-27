@@ -11,6 +11,10 @@
 			<field name="product_rank_v2" />
 			<field name="porcentaje_del_total_v2" />
 			<field name="product_abc_v2" />
+                        <button name="show_treemap"
+                              string="Mostrar Treemap"
+                              type="object" icon="icon-sitemap" />
+
 		</field>
 	    </field>
 	</record>
