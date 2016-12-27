@@ -263,7 +263,8 @@ class product_product(models.Model):
 	@api.one
 	def _compute_semanas_stock_v2(self):
 		units_week = self.promedio_v2 / 4
-		self.semanas_stock_v2 = math.ceil(self.qty_available / units_week)
+		if units_week > 0:
+			self.semanas_stock_v2 = math.ceil(self.qty_available / units_week)
 
 	@api.one
 	def _compute_porc_vtas_a(self):
