@@ -9,6 +9,7 @@ import datetime
 from openerp.fields import Date as newdate
 from datetime import datetime, timedelta, date
 from dateutil import relativedelta
+import math
 #Get the logger
 _logger = logging.getLogger(__name__)
 
@@ -259,6 +260,10 @@ class product_product(models.Model):
 	def _compute_faltante_valorizado_v2(self):
 		self.faltante_valorizado_v2 = self.faltante_valorizado_v2 * self.standard_price
 
+	@api.one
+	def _compute_semanas_stock_v2(self):
+		units_week = self.promedio_v2 / 4
+		self.semanas_stock_v2 = math.ceil(self.qty_available / units_week)
 
 	internal_supplier_v2 = fields.Many2one('res.partner',compute=_compute_internal_supplier_v2,store=True)
 	internal_category_v2 = fields.Many2one('product.category',compute=_compute_internal_category_v2,store=True)
@@ -279,3 +284,4 @@ class product_product(models.Model):
 	faltante_v2 = fields.Integer(string='Faltante',compute=_compute_faltante_v2)
 	sobrante_valorizado_v2 = fields.Integer(string='Sobrante Valorizado',compute=_compute_sobrante_valorizado_v2)
 	faltante_valorizado_v2 = fields.Integer(string='Faltante Valorizado',compute=_compute_faltante_valorizado_v2)
+	semanas_stock_v2 = fields.Integer(string='Semanas Abastecimiento',compute=_compute_semanas_stock_v2)
