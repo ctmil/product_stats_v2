@@ -3,7 +3,7 @@
     'category': 'Sale',
     'version': '0.1',
     #'depends': ['base','product','account','ba_sales'],
-    'depends': ['base','product','account'],
+    'depends': ['base','product','account','website'],
     'data': [
 	'product_view.xml',
 	'website_product.xml',
