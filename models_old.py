@@ -24,7 +24,7 @@ from openerp.tools.translate import _
 from openerp.osv import fields, osv
 
 class product_product(osv.osv):
-	_inherit = "project.project"
+	_inherit = "product.product"
 
 	def show_treemap(self, cr, uid, product_id, context=None):
 	        product = self.browse(cr, uid, product_id[0], context=context)
