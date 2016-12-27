@@ -5,7 +5,7 @@
   <template id="assets_frontend" inherit_id="website.assets_frontend" name="Product Stats frontend assets">
     <xpath expr="." position="inside">
 	<script type="text/javascript" src="/product_stats_v2/static/src/js/product_stats.js"></script>
-        <link rel='stylesheet' href='/product_stats_v2/static/src/css/project_stats.css'/>
+        <link rel='stylesheet' href='/product_stats_v2/static/src/css/product_stats.css'/>
            <!-- jQuery addons -->
             <!-- script type="text/javascript" src="/web/static/lib/jquery.validate/jquery.validate.js"></script>
             <script type="text/javascript" src="/web/static/lib/jquery.scrollTo/jquery.scrollTo.js"></script>
@@ -17,9 +17,8 @@
             <script type="text/javascript" src="/web/static/lib/jquery.ui.notify/js/jquery.notify.js"></script -->
 
             <!-- nv.d3 -->
-            <link rel="stylesheet" href="/web/static/lib/nvd3/nv.d3.css"/>
-            <script type="text/javascript" src="/web/static/lib/nvd3/d3.v3.js"></script>
-            <script type="text/javascript" src="/web/static/lib/nvd3/nv.d3.js"></script>
+            <!-- link rel="stylesheet" href="/web/static/lib/nvd3/nv.d3.css"/ -->
+            <script type="text/javascript" src="/product_stats_v2/static/lib/d3.v4.js"></script>
 
             <!-- Backbone -->
             <!-- script type="text/javascript" src="/web/static/lib/backbone/backbone.js"></script -->
