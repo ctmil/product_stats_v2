@@ -6,6 +6,7 @@
     'depends': ['base','product','account'],
     'data': [
 	'product_view.xml',
+	'website_product.xml',
 	'wizard/wizard_view.xml'
     ],
     'demo': [
