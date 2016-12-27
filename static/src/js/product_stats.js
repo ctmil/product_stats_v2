@@ -9,9 +9,13 @@ var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
+console.log('Paso 1');
+
 var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
     color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
     format = d3.format(",d");
+
+console.log('Paso 2');
 
 var treemap = d3.treemap()
     .tile(d3.treemapResquarify)
@@ -19,6 +23,7 @@ var treemap = d3.treemap()
     .round(true)
     .paddingInner(1);
 
+console.log('Antes de leer el json');
 d3.json("flare.json", function(error, data) {
   if (error) throw error;
   console.log('Proceso json');

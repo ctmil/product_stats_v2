@@ -18,7 +18,7 @@
 
             <!-- nv.d3 -->
             <!-- link rel="stylesheet" href="/web/static/lib/nvd3/nv.d3.css"/ -->
-            <script type="text/javascript" src="/product_stats_v2/static/src/lib/d3.v4.js"></script>
+            <script type="text/javascript" src="/product_stats_v2/static/src/lib/d3.v4.min.js"></script>
 
             <!-- Backbone -->
             <!-- script type="text/javascript" src="/web/static/lib/backbone/backbone.js"></script -->
@@ -60,6 +60,7 @@
 		</div>
 		<div class="products">
 		</div>
+		<svg width="960" height="570"></svg>
             </div>
         </body>
       </t>
