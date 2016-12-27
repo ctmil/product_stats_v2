@@ -18,7 +18,7 @@
 
             <!-- nv.d3 -->
             <!-- link rel="stylesheet" href="/web/static/lib/nvd3/nv.d3.css"/ -->
-            <script type="text/javascript" src="/product_stats_v2/static/lib/d3.v4.js"></script>
+            <script type="text/javascript" src="/product_stats_v2/static/src/lib/d3.v4.js"></script>
 
             <!-- Backbone -->
             <!-- script type="text/javascript" src="/web/static/lib/backbone/backbone.js"></script -->
@@ -38,13 +38,13 @@
             <link rel="stylesheet" href="/web/static/src/less/modal.less"/>
             <link rel="stylesheet" href="/web/static/src/less/notification.less"/ -->
 
-            <script type="text/javascript" src="/web/static/lib/py.js/lib/py.js"></script>
+            <!-- script type="text/javascript" src="/web/static/lib/py.js/lib/py.js"></script -->
             <!-- Special case: core.js declares $.browser needed by ba-bbq -->
-            <script type="text/javascript" src="/web/static/src/js/framework/data.js"></script>
+            <!-- script type="text/javascript" src="/web/static/src/js/framework/data.js"></script>
             <script type="text/javascript" src="/web/static/src/js/framework/data_model.js"></script>
             <script type="text/javascript" src="/web/static/src/js/framework/formats.js"></script>
             <script type="text/javascript" src="/web/static/src/js/framework/view.js"></script>
-            <script type="text/javascript" src="/web/static/src/js/framework/pyeval.js"></script>
+            <script type="text/javascript" src="/web/static/src/js/framework/pyeval.js"></script -->
 
     </xpath>
   </template>

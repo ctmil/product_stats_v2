@@ -1,5 +1,9 @@
-odoo.define('project_wbs.project_wbs', function (require) {
+//odoo.define('project_wbs.project_wbs', function (require) {
+$(function () {
 'use strict';
+var website = openerp.website;
+
+console.log('Esta procesando');
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -17,7 +21,7 @@ var treemap = d3.treemap()
 
 d3.json("flare.json", function(error, data) {
   if (error) throw error;
-
+  console.log('Proceso json');
   var root = d3.hierarchy(data)
       .eachBefore(function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; })
       .sum(sumBySize)
