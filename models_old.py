@@ -22,7 +22,6 @@ from datetime import datetime, date
 
 from openerp.tools.translate import _
 from openerp.osv import fields, osv
-from openerp.addons.base_status.base_stage import base_stage
 
 class product_product(osv.osv):
 	_inherit = "project.project"
