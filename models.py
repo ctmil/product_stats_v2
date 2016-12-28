@@ -265,7 +265,10 @@ class product_product(models.Model):
 		if self.promedio_v2:
 			units_week = self.promedio_v2 / 4
 			if units_week > 0:
-				self.semanas_stock_v2 = math.ceil(self.qty_available / units_week)
+				if math.ceil(self.qty_available / units_week) > 4:
+					self.semanas_stock_v2 = 4
+				else:
+					self.semanas_stock_v2 = math.ceil(self.qty_available / units_week)
 			else:
 				self.semanas_stock_v2 = 1
 		else:
