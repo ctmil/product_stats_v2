@@ -90,6 +90,7 @@
 			<field name="faltante_v2" />
 			<field name="sobrante_valorizado_v2" />
 			<field name="faltante_valorizado_v2" />
+			<field name="semanas_stock_v2" />
 		</tree>
 	    </field>
 	</record>

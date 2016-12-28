@@ -62,6 +62,8 @@
 			<table>
 				<thead>
 					<th>Producto</th>
+					<th>Porc Vtas</th>
+					<th>Semanas Stock</th>
 				</thead>
 		  	        <tbody>
                 		    <tr t-foreach="classification.product_ids" t-as="p">
