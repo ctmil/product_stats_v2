@@ -34,12 +34,17 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
            });
   $('.semanas_stock').each(function(index,element) {
 	   var tmp_semanas = parseInt($(element).text());
-           semanas.push(tmp_semanas);
+	   if isNan(tmp_semanas) {
+		semanas.push(1);
+		}
+	   else {
+           	semanas.push(tmp_semanas);
+		}
            });
 
   var color = d3.scaleThreshold()
     .domain([0, 1, 2, 3, 4, 5])
-    .range(["red", "red", "yellow", "yellow", "green","green"]);
+    .range(["red", "red", "red", "red", "green","green"]);
 
   for (var i=0;i < productos.length;i++){
 	children.push({"name": productos[i], "size": sizes[i], "semanas": semanas[i]});
