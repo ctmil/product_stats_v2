@@ -22,12 +22,20 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
   if (error) throw error;
   console.log('Proceso json');
   console.log(data);
-  var data_products = {"id":"A","name":"A"};
   var productos = [];
+  var sizes = [];
+  var children = [];
   $('.product').each(function(index,element) {
            productos.push($(element).text());
            });
-  console.log(productos);
+  $('.porc_vtas').each(function(index,element) {
+           sizes.push(parseFloat($(element).text()));
+           });
+  for (var i=0;i < productos.length;i++){
+	children.push({"name": productos[i], "size": sizes[i]});
+	};
+  var data_products = {"id":"A","name":"A","children": children};
+  console.log(data_products);
   var root = d3.hierarchy(data)
       .eachBefore(function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; })
       .sum(sumBySize)
