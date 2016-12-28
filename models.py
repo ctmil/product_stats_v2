@@ -268,11 +268,11 @@ class product_product(models.Model):
 
 	@api.one
 	def _compute_porc_vtas_a(self):
-		if self.product_abc_v2 != 'A':
+		if self.product_classification_id.name != 'A':
 			self.porc_vtas_a = 0
 		else:
 			tot_porc_a = 0
-			product_ids = self.env['product.product'].search([('product_abc_v2','=','A')])
+			product_ids = self.env['product.product'].search([('product_classification_id','=',1)])
 			for product_id in product_ids:
 				tot_porc_a += self.porcentaje_del_total_v2
 			if tot_porc_a > 0:
