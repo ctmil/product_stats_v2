@@ -33,7 +33,16 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
            sizes.push(parseFloat($(element).text()));
            });
   $('.semanas_stock').each(function(index,element) {
-           semanas.push(parseFloat($(element).text()));
+	   var tmp_semanas = parseFloat($(element).text());
+	   if (tmp_semanas <= 1) {
+                semanas.push(-0.65);
+		};
+	   if (tmp_semanas == 2) {
+                semanas.push(-0.3);
+		};
+	   if (tmp_semanas >= 3) {
+                semanas.push(0.9);
+		};
            });
   for (var i=0;i < productos.length;i++){
 	children.push({"name": productos[i], "size": sizes[i], "semanas": semanas[i]});
@@ -62,7 +71,7 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
       .attr("id", function(d) { return d.data.id; })
       .attr("width", function(d) { return d.x1 - d.x0; })
       .attr("height", function(d) { return d.y1 - d.y0; })
-      .attr("fill", function(d) { return color(d.semanas); });
+      .attr("fill", function(d) { return color(d.data.semanas); });
 
   cell.append("clipPath")
       .attr("id", function(d) { return "clip-" + d.data.id; })
