@@ -36,9 +36,10 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
 	   var tmp_semanas = parseFloat($(element).text());
            semanas.push(tmp_semanas);
            });
-  var color = d3.scale.threshold()
+
+  var color = d3.scaleThreshold()
     .domain([0, 1, 2, 3, 4, 5])
-    .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+    .range(["red", "red", "yellow", "yellow", "green"]);
 
   for (var i=0;i < productos.length;i++){
 	children.push({"name": productos[i], "size": sizes[i], "semanas": semanas[i]});
@@ -63,11 +64,6 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
   //    .attr("width", function(d) { return d.x1 - d.x0; })
   //    .attr("height", function(d) { return d.y1 - d.y0; })
   //    .attr("fill", function(d) { return color(d.parent.data.id); });
-  //cell.append("rect")
-  //    .attr("id", function(d) { return d.data.id; })
-  //    .attr("width", function(d) { return d.x1 - d.x0; })
-  //    .attr("height", function(d) { return d.y1 - d.y0; })
-  //    .attr("fill", function(d) { return color(d.data.semanas); });
   cell.append("rect")
       .attr("id", function(d) { return d.data.id; })
       .attr("width", function(d) { return d.x1 - d.x0; })
