@@ -33,7 +33,7 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
            sizes.push(parseFloat($(element).text()));
            });
   $('.semanas_stock').each(function(index,element) {
-	   var tmp_semanas = parseFloat($(element).text());
+	   var tmp_semanas = parseInt($(element).text());
            semanas.push(tmp_semanas);
            });
 
