@@ -67,6 +67,7 @@
                 		    <tr t-foreach="classification.product_ids" t-as="p">
 		                        <td><span t-field="p.name" class="product"/></td>
 		                        <td><span t-field="p.porc_vtas_a" class="porc_vtas"/></td>
+		                        <td><span t-field="p.semanas_stock_v2" class="semanas_stock"/></td>
 		                    </tr>
 		             </tbody>
 			</table>
