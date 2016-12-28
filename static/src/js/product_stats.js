@@ -21,8 +21,8 @@ console.log('Antes de leer el json');
 d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
   if (error) throw error;
   console.log('Proceso json');
-  console.log(data)
-  data_products = {"id":"A","name":"A",children=[]}
+  console.log(data);
+  var data_products = {"id":"A","name":"A"};
   var root = d3.hierarchy(data)
       .eachBefore(function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; })
       .sum(sumBySize)
