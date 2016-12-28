@@ -299,3 +299,10 @@ class product_product(models.Model):
 	faltante_valorizado_v2 = fields.Integer(string='Faltante Valorizado',compute=_compute_faltante_valorizado_v2)
 	semanas_stock_v2 = fields.Integer(string='Semanas Abastecimiento',compute=_compute_semanas_stock_v2)
 	porc_vtas_a = fields.Float(string='% Vtas A',compute=_compute_porc_vtas_a)
+	product_classification_id = fields.Many2one('product.classification')
+
+class product_clasification(models.Model):
+	_name = 'product.classification'
+
+	name = fields.Char('Nombre')
+	product_ids = fields.One2many(comodel_name='product.product',inverse_name='product_classification_id')

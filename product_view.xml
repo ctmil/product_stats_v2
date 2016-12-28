@@ -149,6 +149,13 @@
 	    <field name="domain">[('product_rank_v2','>',0)]</field>
 	    <field name="view_id" ref="view_product_graph_v2" />
         </record>
+        <record id="action_product_classification" 
+		model="ir.actions.act_window">
+            <field name="name">Clasif Productos</field>
+            <field name="res_model">product.classification</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
         <menuitem id="menu_product_history_v2" name="Ventas/Cantidades por mes" 
             parent="base.menu_product" 
@@ -163,6 +170,11 @@
         <menuitem id="menu_product_stats_pivot_v2" name="Pivot por producto" 
             parent="base.menu_product" 
             action="action_product_stats_pivot_v2"
+            sequence="110"/>
+
+        <menuitem id="menu_product_classification" name="Clasificacion Productos" 
+            parent="base.menu_product" 
+            action="action_product_classification"
             sequence="110"/>
 
     </data>
