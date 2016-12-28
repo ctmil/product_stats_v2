@@ -55,10 +55,20 @@
             <div class="container">
 		<h1>Hola mundo</h1>
 		<div class="row">
-			<span t-field="product.name"></span>
-			<span t-field="product.id" id="product_id" style="display:none;"></span>
+			<span t-field="classification.name"></span>
+			<span t-field="classification.id" id="classification_id" style="display:none;"></span>
 		</div>
 		<div class="products">
+			<table>
+				<thead>
+					<th>Producto</th>
+				</thead>
+		  	        <tbody>
+                		    <tr t-foreach="classification.product_ids" t-as="p">
+		                        <td><span t-field="p.name"/></td>
+		                    </tr>
+		             </tbody>
+			</table>
 		</div>
 		<svg width="960" height="570"></svg>
             </div>

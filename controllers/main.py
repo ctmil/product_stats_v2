@@ -24,9 +24,9 @@ class product_product(http.Controller):
         def view(self, product_id, pdf=None, token=None, message=False, **post):
                 # use SUPERUSER_ID allow to access/view order for public user
                 # only if he knows the private token
-                product = request.registry['product.product'].browse(request.cr, SUPERUSER_ID, product_id)
+                classification = request.registry['product.classification'].browse(request.cr, SUPERUSER_ID, 1)
                 values = {
-                        'product': product
+                        'classification': classification
                 }
                 return request.website.render('product_stats_v2.product_stats', values)
 
