@@ -39,7 +39,7 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
 
   var color = d3.scaleThreshold()
     .domain([0, 1, 2, 3, 4, 5])
-    .range(["red", "red", "yellow", "yellow", "green"]);
+    .range(["red", "red", "yellow", "yellow", "green","green"]);
 
   for (var i=0;i < productos.length;i++){
 	children.push({"name": productos[i], "size": sizes[i], "semanas": semanas[i]});
