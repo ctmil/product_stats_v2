@@ -65,8 +65,8 @@
 				</thead>
 		  	        <tbody>
                 		    <tr t-foreach="classification.product_ids" t-as="p">
-		                        <td><span t-field="p.name"/></td>
-		                        <td><span t-field="p.porc_vtas_a"/></td>
+		                        <td><span t-field="p.name" class="product"/></td>
+		                        <td><span t-field="p.porc_vtas_a" class="porc_vtas"/></td>
 		                    </tr>
 		             </tbody>
 			</table>
