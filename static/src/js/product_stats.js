@@ -43,14 +43,15 @@ d3.json("/product_stats_v2/static/src/js/flare.json", function(error, data) {
 	//	};
            });
 
+  //var color = d3.scaleThreshold()
+  //  .domain([0, 1, 2, 3, 4, 5])
+  //  .range(["red", "red", "yellow", "yellow", "green","green"]);
   var color = d3.scaleThreshold()
-    .domain([0, 1, 2, 3, 4, 5])
-    .range(["red", "red", "yellow", "yellow", "green","green"]);
+    .domain([0, 5])
+    .range(["red", "yellow", "green"]);
 
   for (var i=0;i < productos.length;i++){
-	if !isNaN(semanas[i]) {
-		children.push({"name": productos[i], "size": sizes[i], "semanas": semanas[i]});
-		};
+	children.push({"name": productos[i], "size": sizes[i], "semanas": semanas[i]});
 	};
   var data_products = {"id":"A","name":"A","children": children};
   console.log(data_products);
